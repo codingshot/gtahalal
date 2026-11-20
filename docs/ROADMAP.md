@@ -20,4 +20,4 @@
 - [ ] Authoritative multiplayer, invite-only sessions, moderation, load tests
 - [ ] Cultural reviewers for Nairobi, Lagos, Addis Ababa and other cities
 
-See the full [Notion spec](https://app.notion.com/p/41ec1f4ba97e81d8b38eec78a7909e74).
+See [Start Here](START_HERE.md), [World Bible](MAIN_CAMPAIGN_WORLD_BIBLE.md) and [Content Review](CONTENT_REVIEW_AND_ACCEPTANCE.md).
