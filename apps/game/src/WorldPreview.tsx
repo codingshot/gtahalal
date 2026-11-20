@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { ContactShadows } from '@react-three/drei';
-import { BOUNDS, NPCS, deliverPantry, freshState, migrateSave, move, nearbyNpc, serializeSave, talk, tick, type GameState, type Persona } from '@dunya/game-core';
+import { NPCS, OBSTACLES, deliverPantry, freshState, migrateSave, move, nearbyNpc, serializeSave, talk, tick, type GameState, type Persona } from '@dunya/game-core';
 import { PANTRY_MISSION } from '@dunya/content';
 import * as THREE from 'three';
 
@@ -54,6 +54,7 @@ function NeighborhoodScene({ game, quality, onTick }: { game: GameState; quality
     <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow><planeGeometry args={[100, 100]} /><meshStandardMaterial color="#b5b7a5" /></mesh>
     <mesh position={[0, 0.02, 0]} receiveShadow><boxGeometry args={[48, 0.04, 8]} /><meshStandardMaterial color="#4e595c" /></mesh>
     {Array.from({ length: 16 }, (_, i) => <Building key={i} x={(i % 8 - 3.5) * 5.4} z={i < 8 ? -10 : 11} height={3.4 + (i * 7 % 5) * 1.35} tone={['#c4b7a1','#d8c9b0','#b7b8ad','#a9b3ad'][i % 4]} label={i === 3 ? 'Pantry' : undefined} />)}
+    {OBSTACLES.map(o => <mesh key={o.id} position={[o.x,0.25,o.z]} castShadow receiveShadow><boxGeometry args={[o.halfWidth*2,0.5,o.halfDepth*2]} /><meshStandardMaterial color="#56766a" roughness={0.95} /></mesh>)}
     {NPCS.map((npc, i) => <group key={npc.id} position={[npc.x, 0, npc.z]}>
       <mesh position={[0, 0.9, 0]} castShadow><capsuleGeometry args={[0.2, 1, 6, 10]} /><meshStandardMaterial color={['#b58367','#5d7c7b','#9c8168'][i]} /></mesh>
       <mesh position={[0, 1.7, 0]} castShadow><sphereGeometry args={[0.21, 12, 8]} /><meshStandardMaterial color="#936f57" /></mesh>
