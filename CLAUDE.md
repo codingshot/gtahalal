@@ -13,6 +13,9 @@ This public repository is an original, constructive, browser-first 3D Muslim lif
 7. docs/GITHUB_SOURCE_OF_TRUTH_POLICY.md, docs/STORY_CAMPAIGN_BRANCH_ATLAS.md and docs/ISLAMIC_RULES_AND_CLAIMS_MATRIX.md for public content, continuity and claim gates.
 8. .claude/skills/branch-continuity-audit/SKILL.md for cross-story audits.
 
+9. docs/SCENARIO_SPECIFICATION_STANDARD.md, docs/CONNECTED_STORY_EXAMPLES.md and docs/REVIEW_TRACEABILITY_MATRIX.md for testable story specs.
+10. docs/CLAUDE_NEXT_WORK_BATCH.md for the current bounded documentation queue.
+
 ## Working agreement
 - Public repo: no personal information, private records, secrets, private contact details or unpublished personal stories.
 - Never treat proposed content as verified Islamic rulings, legal advice or facts about named real organizations.
