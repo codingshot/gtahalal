@@ -1,0 +1,1 @@
+export default function Home(){return <main style={{fontFamily:'system-ui',padding:48,maxWidth:800,margin:'auto'}}><h1>Dunya</h1><p>Do good. Learn. Serve. Build.</p><p>An original open-source browser-based 3D world of constructive missions, cities and community.</p><a href="https://github.com/codingshot/gtahalal">Contribute on GitHub</a></main>}
