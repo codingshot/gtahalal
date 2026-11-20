@@ -16,6 +16,16 @@ export const INITIAL_STATE: GameState = {
   coins: 12, inventory: {}, quest: 'available', npcSpoken: [], timeMinutes: 9 * 60,
 };
 export const BOUNDS = { minX: -21, maxX: 21, minZ: -7, maxZ: 7 };
+// Fictional starter block planters; collision is a basic 2D scaffold, not physics/navmesh.
+export const OBSTACLES = [
+  { id: 'planter-west', x: -3, z: 2.5, halfWidth: 1.1, halfDepth: 0.75 },
+  { id: 'planter-east', x: 3, z: -2.5, halfWidth: 1.1, halfDepth: 0.75 },
+] as const;
+export function isWalkable(x: number, z: number): boolean {
+  if (!Number.isFinite(x) || !Number.isFinite(z)) return false;
+  if (x < BOUNDS.minX || x > BOUNDS.maxX || z < BOUNDS.minZ || z > BOUNDS.maxZ) return false;
+  return !OBSTACLES.some(o => Math.abs(x - o.x) < o.halfWidth + 0.25 && Math.abs(z - o.z) < o.halfDepth + 0.25);
+}
 export const NPCS = [
   { id: 'sara', name: 'Sara', x: -7, z: 1, text: 'The neighborhood pantry could use a hand.' },
   { id: 'bilal', name: 'Bilal', x: 6, z: 1, text: 'A friendly visit makes a difference.' },
@@ -29,10 +39,12 @@ export function move(state: GameState, dx: number, dz: number, deltaSeconds: num
   const length = Math.hypot(dx, dz);
   if (!length) return state;
   const step = Math.min(deltaSeconds, 0.1) * 3.5 / Math.max(length, 1);
-  return { ...state, position: {
-    x: Math.max(BOUNDS.minX, Math.min(BOUNDS.maxX, state.position.x + dx * step)),
-    z: Math.max(BOUNDS.minZ, Math.min(BOUNDS.maxZ, state.position.z + dz * step)),
-  }};
+  const nextX = Math.max(BOUNDS.minX, Math.min(BOUNDS.maxX, state.position.x + dx * step));
+  const nextZ = Math.max(BOUNDS.minZ, Math.min(BOUNDS.maxZ, state.position.z + dz * step));
+  // Axis-separated resolution lets the player slide around solid obstacles.
+  const x = isWalkable(nextX, state.position.z) ? nextX : state.position.x;
+  const z = isWalkable(x, nextZ) ? nextZ : state.position.z;
+  return { ...state, position: { x, z } };
 }
 export function nearbyNpc(state: GameState, radius = 2.2) {
   return NPCS.find(n => Math.hypot(n.x - state.position.x, n.z - state.position.z) <= radius);
