@@ -1,0 +1,1 @@
+export default function Studio(){return <main style={{fontFamily:'system-ui',padding:48}}><h1>Dunya Mission Studio</h1><p>Editorial workflow scaffold. Missions require source and cultural review before publishing.</p></main>}
