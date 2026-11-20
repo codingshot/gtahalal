@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { freshState, move, talk, deliverPantry, migrateSave, serializeSave, nearbyNpc, tick } from '../src/index.ts';
+import { freshState, move, talk, deliverPantry, migrateSave, serializeSave, nearbyNpc, tick, isWalkable } from '../src/index.ts';
 test('movement is bounded and ignores invalid deltas', () => {
   let s=freshState();
   assert.equal(move(s,NaN,0,1),s);
@@ -29,3 +29,11 @@ test('save migration clamps and rejects unknown version', () => {
   assert.equal(migrateSave(JSON.parse(serializeSave(freshState()))).version,1);
 });
 test('clock is deterministic',()=>assert.equal(tick(freshState(),1).timeMinutes,540.25));
+
+test('obstacles block movement but permit axis sliding', () => {
+  assert.equal(isWalkable(-3,2.5),false);
+  assert.equal(isWalkable(0,0),true);
+  const state={...freshState(),position:{x:-3,z:1.25}};
+  const next=move(state,0,1,.1);
+  assert.equal(next.position.z,state.position.z);
+});
