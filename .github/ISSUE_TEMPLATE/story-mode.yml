@@ -1,0 +1,25 @@
+name: Story mode specification
+description: Propose a reviewed, constructive Dunya story; documentation only
+title: '[Story] '
+body:
+  - type: textarea
+    id: synopsis
+    attributes:
+      label: Scenario, player goals and peaceful outcomes
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Quran.com/Sunnah.com evidence leads and review status
+      description: Do not claim a source is verified before scholarly review.
+  - type: textarea
+    id: risks
+    attributes:
+      label: Safety, civil liberties, legal, cultural and accessibility considerations
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Testable acceptance criteria and out-of-scope items
