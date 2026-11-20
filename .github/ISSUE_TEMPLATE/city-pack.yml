@@ -1,0 +1,24 @@
+name: City pack proposal
+description: Propose a culturally reviewed original city setting
+title: '[City] '
+body:
+  - type: input
+    id: city
+    attributes:
+      label: City or fictional setting
+    validations:
+      required: true
+  - type: textarea
+    id: opportunities
+    attributes:
+      label: Cultural strengths, community missions and local context
+    validations:
+      required: true
+  - type: textarea
+    id: rights
+    attributes:
+      label: Local reviewers, landmark permissions, map and asset licensing
+  - type: textarea
+    id: accessibility
+    attributes:
+      label: Accessibility, languages and performance considerations
