@@ -2,11 +2,13 @@
 This public repository is an original, constructive, browser-first 3D Muslim life simulator. This phase is **specification and development harness only**. Do not implement gameplay or generate assets until an issue explicitly authorizes it.
 
 ## Read in order
+0. docs/START_HERE.md for navigation and docs/ADR-001-THREE_APP_ARCHITECTURE.md for app boundaries.
 1. AGENTS.md, README.md and docs/ROADMAP.md.
 2. docs/CLAUDE_EXECUTION_PLAN.md for bounded work and verification.
 3. docs/STORY_MODE_EXPANSION.md for sensitive story proposals.
 4. docs/ISLAMIC_CONTENT_POLICY.md and docs/CONTENT_REVIEW_AND_ACCEPTANCE.md for release gates.
 5. docs/NEXTJS_THREEJS_ARCHITECTURE.md for existing stack decisions.
+6. .claude/skills/quran-source-validation/SKILL.md, sunnah-source-validation/SKILL.md and islamic-story-audit/SKILL.md for religious or story claims.
 
 ## Working agreement
 - Public repo: no personal information, private records, secrets, private contact details or unpublished personal stories.
