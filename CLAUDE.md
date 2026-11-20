@@ -10,6 +10,9 @@ This public repository is an original, constructive, browser-first 3D Muslim lif
 5. docs/NEXTJS_THREEJS_ARCHITECTURE.md for existing stack decisions.
 6. .claude/skills/quran-source-validation/SKILL.md, sunnah-source-validation/SKILL.md and islamic-story-audit/SKILL.md for religious or story claims.
 
+7. docs/GITHUB_SOURCE_OF_TRUTH_POLICY.md, docs/STORY_CAMPAIGN_BRANCH_ATLAS.md and docs/ISLAMIC_RULES_AND_CLAIMS_MATRIX.md for public content, continuity and claim gates.
+8. .claude/skills/branch-continuity-audit/SKILL.md for cross-story audits.
+
 ## Working agreement
 - Public repo: no personal information, private records, secrets, private contact details or unpublished personal stories.
 - Never treat proposed content as verified Islamic rulings, legal advice or facts about named real organizations.
@@ -21,3 +24,5 @@ This public repository is an original, constructive, browser-first 3D Muslim lif
 - Religious content requires scholar review, legal content requires jurisdictional review, real mosque/city portrayals require local review.
 - Avoid blanket accusations or profiling of religious, ethnic, political or professional groups.
 - End every work session with: files changed, issues touched, tests actually run, risks, next three tasks.
+
+- Never link to Notion or private workspaces in GitHub content; copy approved, non-sensitive requirements into repository Markdown with proper source provenance.
