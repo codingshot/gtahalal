@@ -1,0 +1,22 @@
+name: Documentation improvement
+description: Propose a bounded docs-only task for contributors or Claude
+title: '[Docs] '
+body:
+  - type: input
+    id: file
+    attributes:
+      label: Exact file path or existing issue
+    validations:
+      required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: What is missing or inconsistent?
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Testable acceptance criteria and out-of-scope changes
+    validations:
+      required: true
