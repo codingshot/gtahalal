@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Environment, OrbitControls, ContactShadows } from '@react-three/drei';
+import { OrbitControls, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 
 type Persona = 'Ahmed' | 'Fatimah';
