@@ -72,6 +72,7 @@ export function WorldPreview() {
   const [quality, setQuality] = useState<Quality>('low');
   const [paused, setPaused] = useState(true);
   const [dialogue, setDialogue] = useState('');
+  const [dialogueNpc, setDialogueNpc] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
   const pressed = useRef(new Set<string>());
   const gameRef = useRef(game);
@@ -92,10 +93,7 @@ export function WorldPreview() {
     const npc = nearbyNpc(current);
     if (!npc) { setDialogue('Move closer to a neighbor to talk.'); return; }
     setDialogue(npc.name + ': ' + npc.text);
-    setGame(previous => {
-      const talked = talk(previous, npc.id);
-      return npc.id === 'amina' ? deliverPantry(talked) : talked;
-    });
+    setDialogueNpc(npc.id);
   }, []);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.code === 'KeyE' && !e.repeat && !paused) interact(); };
@@ -111,6 +109,14 @@ export function WorldPreview() {
     if (pad) { dx += Math.abs(pad.axes[0] ?? 0) > 0.18 ? pad.axes[0] : 0; dz += Math.abs(pad.axes[1] ?? 0) > 0.18 ? pad.axes[1] : 0; }
     setGame(s => tick(move(s, dx, dz, dt), dt));
   }, [paused]);
+  const respond = (accept: boolean) => {
+    if (accept && dialogueNpc) setGame(previous => {
+      const talked = talk(previous, dialogueNpc);
+      return dialogueNpc === 'amina' ? deliverPantry(talked) : talked;
+    });
+    setDialogue(accept ? 'Thank you for listening.' : 'You can come back another time.');
+    setDialogueNpc(null);
+  };
   const save = () => { try { localStorage.setItem(SAVE_KEY, serializeSave(gameRef.current)); setDialogue('Saved locally on this device.'); } catch { setDialogue('Save failed: storage unavailable.'); } };
   useEffect(() => {
     if (!loaded) return;
@@ -145,6 +151,10 @@ export function WorldPreview() {
         onPointerUp={()=>pressed.current.delete(key)} onPointerCancel={()=>pressed.current.delete(key)}
         aria-label={({'KeyW':'Forward','KeyS':'Backward','KeyA':'Left','KeyD':'Right'} as Record<string,string>)[key]}>{({KeyW:'↑',KeyS:'↓',KeyA:'←',KeyD:'→'} as Record<string,string>)[key]}</button> : <span key={i}/>)}
     </nav>
+    {dialogueNpc && <div role="dialog" aria-label="Neighbor conversation" style={{position:'absolute',bottom:166,left:'50%',transform:'translateX(-50%)',zIndex:4,background:'rgba(10,30,38,.96)',padding:12,borderRadius:10,display:'flex',gap:8}}>
+      <button style={buttonStyle} onClick={() => respond(true)}>Help / Listen</button>
+      <button style={buttonStyle} onClick={() => respond(false)}>Not now</button>
+    </div>}
     <button style={{...buttonStyle,position:'absolute',bottom:20,right:15,zIndex:3,padding:'15px 22px'}} onClick={interact} disabled={paused}>Talk / Interact (E)</button>
     {paused && <div style={{position:'absolute',inset:0,zIndex:2,background:'rgba(0,0,0,.36)',display:'grid',placeItems:'center',pointerEvents:'none'}}>
       <div style={{background:'rgba(12,31,39,.9)',padding:24,borderRadius:12,textAlign:'center'}}><strong>Paused</strong><p>Choose a character, then press Play.</p><small>Draft community mission; no religious rulings.</small></div>
