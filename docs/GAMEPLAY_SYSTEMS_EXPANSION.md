@@ -25,9 +25,9 @@ Wudu Hero: step sequencing, correct method and optional camera-less practice; Mo
 
 ## Content provenance
 Existing ummah.build ideas reviewed:
-- Wudu Hero: https://app.notion.com/p/2b8c1f4ba97e8068a804cbba631c5b36
-- MosqueMaze: https://app.notion.com/p/28fc1f4ba97e80f980e3df524f92eeae
-- Adhaan Hero: https://app.notion.com/p/2f1c1f4ba97e80b3b7c5d0260563d48e
-- Qur'anoke: https://app.notion.com/p/3cac1f4ba97e80c7b436cf7c7b0a691a
-- Halal Games: https://app.notion.com/p/1c3c1f4ba97e802a9d57d118f3bbd738
+- Wudu Hero: in-house concept; standalone source rights and review pending.
+- MosqueMaze: in-house concept; integration and licensing review pending.
+- Adhaan Hero: in-house concept; recitation review pending.
+- Qur'anoke: in-house concept; educational review pending.
+- Halal Games: in-house concept collection; implementation and safety review pending.
 Source ideas are inspiration only; verify ownership, licensing and implementation rights before integration.
