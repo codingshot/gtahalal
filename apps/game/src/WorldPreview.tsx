@@ -45,8 +45,8 @@ function FollowCamera({ position }: { position: { x: number; z: number } }) {
   return null;
 }
 function NeighborhoodScene({ game, quality, onTick }: { game: GameState; quality: Quality; onTick: (dt: number) => void }) {
-  const lastUpdate = useRef(0);
-  useFrame((state, delta) => { if (state.clock.elapsedTime - lastUpdate.current > 0.05) { lastUpdate.current = state.clock.elapsedTime; onTick(delta); } });
+  const accumulator = useRef(0);
+  useFrame((_, delta) => { accumulator.current += Math.min(delta, 0.1); if (accumulator.current >= 0.05) { onTick(accumulator.current); accumulator.current = 0; } });
   return <>
     <color attach="background" args={['#b8d4e5']} /><fog attach="fog" args={['#b8d4e5', 32, 95]} />
     <ambientLight intensity={0.85} /><hemisphereLight args={['#e7f3ff', '#7d7565', 1.4]} />
@@ -75,8 +75,7 @@ export function WorldPreview() {
   const [loaded, setLoaded] = useState(false);
   const pressed = useRef(new Set<string>());
   const gameRef = useRef(game);
-  const lastSave = useRef(0);
-  useEffect(() => { gameRef.current = game; }, [game]);
+    useEffect(() => { gameRef.current = game; }, [game]);
   useEffect(() => {
     setGame(loadGame()); setLoaded(true);
     const down = (e: KeyboardEvent) => {
@@ -144,7 +143,7 @@ export function WorldPreview() {
       {[['','KeyW',''],['KeyA','KeyS','KeyD']].flat().map((key,i) => key ? <button key={i} style={buttonStyle}
         onPointerDown={e=>{e.currentTarget.setPointerCapture(e.pointerId);pressed.current.add(key);}}
         onPointerUp={()=>pressed.current.delete(key)} onPointerCancel={()=>pressed.current.delete(key)}
-        aria-label={{KeyW:'Forward',KeyS:'Backward',KeyA:'Left',KeyD:'Right'}[key]}>{({KeyW:'↑',KeyS:'↓',KeyA:'←',KeyD:'→'} as Record<string,string>)[key]}</button> : <span key={i}/>)}
+        aria-label={({'KeyW':'Forward','KeyS':'Backward','KeyA':'Left','KeyD':'Right'} as Record<string,string>)[key]}>{({KeyW:'↑',KeyS:'↓',KeyA:'←',KeyD:'→'} as Record<string,string>)[key]}</button> : <span key={i}/>)}
     </nav>
     <button style={{...buttonStyle,position:'absolute',bottom:20,right:15,zIndex:3,padding:'15px 22px'}} onClick={interact} disabled={paused}>Talk / Interact (E)</button>
     {paused && <div style={{position:'absolute',inset:0,zIndex:2,background:'rgba(0,0,0,.36)',display:'grid',placeItems:'center',pointerEvents:'none'}}>
