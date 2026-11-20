@@ -39,4 +39,4 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md), [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md
 ## Principles
 Constructive, nonviolent gameplay; no coercive dawah or divine-reward scoring; exact Qur'an and Sunnah citations with qualified scholarly review; respect for all innocent people and houses of worship; original licensed assets, not Rockstar/GTA material; no personal information in this public repository.
 
-[Full product requirements in Notion](https://app.notion.com/p/41ec1f4ba97e81d8b38eec78a7909e74).
+Full product requirements are maintained in this repository: see [Start Here](docs/START_HERE.md) and [Main Campaign](docs/MAIN_CAMPAIGN_WORLD_BIBLE.md).
