@@ -1,0 +1,37 @@
+name: Islamic source and ruling review
+description: Request scholarly review of a claim, source or proposed game consequence
+title: '[Islamic Review] '
+body:
+  - type: input
+    id: claim
+    attributes:
+      label: Claim ID and affected document
+      placeholder: Q-001, docs/...
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Canonical Quran.com or Sunnah.com links
+      description: Cite exact references; do not paste copyrighted translations.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Interpretation, context, disagreements and uncertainty
+    validations:
+      required: true
+  - type: dropdown
+    id: status
+    attributes:
+      label: Review status
+      options:
+        - Research lead only
+        - Source text checked; interpretation pending
+        - Needs qualified scholar
+        - Needs legal/cultural review
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Required reviewer evidence and release acceptance criteria
