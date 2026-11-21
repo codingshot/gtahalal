@@ -27,9 +27,9 @@ export function isWalkable(x: number, z: number): boolean {
   return !OBSTACLES.some(o => Math.abs(x - o.x) < o.halfWidth + 0.25 && Math.abs(z - o.z) < o.halfDepth + 0.25);
 }
 export const NPCS = [
-  { id: 'sara', name: 'Sara', x: -7, z: 1, text: 'The neighborhood pantry could use a hand.' },
-  { id: 'bilal', name: 'Bilal', x: 6, z: 1, text: 'A friendly visit makes a difference.' },
-  { id: 'amina', name: 'Amina', x: 0, z: -4, text: 'Please bring supplies to the pantry.' },
+  { id: 'sara', name: 'Sara', x: -7, z: 1, text: 'Welcome to Bayhaven. I'm Sara. The neighborhood pantry could use help. Would you like to hear what needs doing?' },
+  { id: 'bilal', name: 'Bilal', x: 6, z: 1, text: 'I'm Bilal. The curb near the pantry gets blocked by deliveries. We should find a safer route.' },
+  { id: 'amina', name: 'Amina', x: 0, z: -4, text: 'I'm Amina. Thanks for coming. We need a clear count and a safe handoff before distribution.' },
 ] as const;
 export function freshState(persona: Persona = 'Ahmed'): GameState {
   return { ...INITIAL_STATE, persona, position: { x: 0, z: 0 }, inventory: {}, npcSpoken: [] };
