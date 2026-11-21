@@ -1,6 +1,10 @@
 # Dunya — public requirements index
 Status: index of existing source documents and draft PR work; documentation is not implementation or religious approval.
 
+## New contributor handoffs
+- [M0–M7 milestone and issue map](PROJECT_MILESTONES_AND_ISSUE_MAP.md) — implementation order and verification gates.
+- [Act I player experience acceptance criteria](ACT_I_PLAYER_EXPERIENCE_REQUIREMENTS.md) — first playable neighborhood, NPC dialogue and map requirements.
+
 ## Read order
 1. [README](../README.md) — player-facing concept, actual status, architecture.
 2. [Start Here](START_HERE.md) — role-specific onboarding.
