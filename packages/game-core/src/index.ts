@@ -26,6 +26,11 @@ export function isWalkable(x: number, z: number): boolean {
   if (x < BOUNDS.minX || x > BOUNDS.maxX || z < BOUNDS.minZ || z > BOUNDS.maxZ) return false;
   return !OBSTACLES.some(o => Math.abs(x - o.x) < o.halfWidth + 0.25 && Math.abs(z - o.z) < o.halfDepth + 0.25);
 }
+export const LANDMARKS = [
+  { id: 'harbor-plaza', name: 'Harbor Plaza', x: -7, z: 1, kind: 'public' },
+  { id: 'community-pantry', name: 'Community Pantry', x: 0, z: -4, kind: 'service' },
+  { id: 'bicycle-workshop', name: 'Bicycle Workshop', x: 6, z: 1, kind: 'shop' },
+] as const;
 export const NPCS = [
   { id: 'sara', name: 'Sara', x: -7, z: 1, text: 'Welcome to Bayhaven. I'm Sara. The neighborhood pantry could use help. Would you like to hear what needs doing?' },
   { id: 'bilal', name: 'Bilal', x: 6, z: 1, text: 'I'm Bilal. The curb near the pantry gets blocked by deliveries. We should find a safer route.' },
@@ -50,7 +55,8 @@ export function nearbyNpc(state: GameState, radius = 2.2) {
   return NPCS.find(n => Math.hypot(n.x - state.position.x, n.z - state.position.z) <= radius);
 }
 export function talk(state: GameState, npcId: string): GameState {
-  if (!NPCS.some(n => n.id === npcId) || state.npcSpoken.includes(npcId)) return state;
+  const npc = NPCS.find(n => n.id === npcId);
+  if (!npc || Math.hypot(npc.x - state.position.x, npc.z - state.position.z) > 2.2 || state.npcSpoken.includes(npcId)) return state;
   return { ...state, npcSpoken: [...state.npcSpoken, npcId],
     quest: npcId === 'sara' && state.quest === 'available' ? 'active' : state.quest };
 }
