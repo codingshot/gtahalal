@@ -115,7 +115,7 @@ export function WorldPreview() {
       const talked = talk(previous, dialogueNpc);
       return dialogueNpc === 'amina' ? deliverPantry(talked) : talked;
     });
-    setDialogue(accept ? 'Thank you for listening.' : 'You can come back another time.');
+    setDialogue(accept ? 'Thanks for helping our neighbors.' : 'No problem. Come back when you're ready.');
     setDialogueNpc(null);
   };
   const save = () => { try { localStorage.setItem(SAVE_KEY, serializeSave(gameRef.current)); setDialogue('Saved locally on this device.'); } catch { setDialogue('Save failed: storage unavailable.'); } };
@@ -129,7 +129,7 @@ export function WorldPreview() {
   return <main style={{ width:'100%', height:'100dvh', background:'#101a20', color:'#fff', fontFamily:'system-ui,sans-serif', position:'relative', overflow:'hidden' }}>
     <header style={{ position:'absolute', top:0, left:0, zIndex:3, padding:'12px 16px', maxWidth:360, background:'rgba(10,22,29,.88)', borderRadius:'0 0 12px 0' }}>
       <strong style={{ fontSize:21, letterSpacing:3 }}>DUNYA</strong>
-      <p style={{ fontSize:12, margin:'6px 0' }}>Original playable blockout · {clock} fictional time · {game.coins} fictional coins</p>
+      <p style={{ fontSize:12, margin:'6px 0' }}>Bayhaven prototype · {clock} fictional time · {game.coins} fictional coins</p>
       <div style={{ display:'flex', gap:6, flexWrap:'wrap' }}>
         <button style={buttonStyle} onClick={() => setGame(freshState('Ahmed'))} aria-pressed={game.persona==='Ahmed'}>Ahmed</button>
         <button style={buttonStyle} onClick={() => setGame(freshState('Fatimah'))} aria-pressed={game.persona==='Fatimah'}>Fatimah</button>
@@ -138,7 +138,7 @@ export function WorldPreview() {
         <button style={buttonStyle} onClick={() => setGame(loadGame())}>Load</button>
         <button style={buttonStyle} onClick={() => setQuality(q => q==='low'?'high':'low')}>Graphics: {quality}</button>
       </div>
-      <p style={{ fontSize:12, margin:'8px 0 0' }}>{PANTRY_MISSION.chapter} · {game.quest==='available'?'Speak to Sara':game.quest==='active'?'Visit Amina at the pantry':'Pantry helped — thank you!'}</p>
+      <p style={{ fontSize:12, margin:'8px 0 0' }}>{PANTRY_MISSION.chapter} · {game.quest==='available'?'Meet Sara at Harbor Plaza':game.quest==='active'?'Find Amina and confirm the pantry handoff':'Pantry handoff complete — thank you!'}</p>
     </header>
     <Canvas shadows={quality==='high'} dpr={quality==='high'?[1,1.75]:[1,1.25]} camera={{ position:[6,5,8], fov:55 }} gl={{ antialias:quality==='high', powerPreference:'high-performance' }}>
       <NeighborhoodScene game={game} quality={quality} onTick={onTick} />
