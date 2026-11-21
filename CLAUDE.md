@@ -1,7 +1,8 @@
 # Dunya — Claude entrypoint
-This public repository is an original, constructive, browser-first 3D Muslim life simulator. This phase is **specification and development harness only**. Do not implement gameplay or generate assets until an issue explicitly authorizes it.
+This public repository is an original, constructive, browser-first 3D Muslim life simulator. This repository has early 3D scaffolding and an explicitly authorized game implementation initiative. Implement gameplay only on focused reviewed branches with real tests; do not merge unverified code or ship unapproved religious instruction. See draft PR #62 and the requirements index.
 
 ## Read in order
+-0. docs/REQUIREMENTS_INDEX.md to identify canonical specs and avoid duplicating the transferred issue backlog.
 0. docs/START_HERE.md for navigation and docs/ADR-001-THREE_APP_ARCHITECTURE.md for app boundaries.
 1. AGENTS.md, README.md and docs/ROADMAP.md.
 2. docs/CLAUDE_EXECUTION_PLAN.md for bounded work and verification.

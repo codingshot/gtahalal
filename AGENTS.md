@@ -1,5 +1,7 @@
 # Agent and contributor harness
 
+Canonical organization repository: https://github.com/ummahbuild/gtahalal. Start at [requirements index](docs/REQUIREMENTS_INDEX.md), check existing issues #1–#61 and draft PR #62 before proposing duplicate work. Do not refer contributors to the former owner URL.
+
 1. Read README and relevant app/package docs before changes. Keep work scoped and testable.
 2. This is a PUBLIC repository. Never commit secrets, personal identifiers, private correspondence, precise user locations, or proprietary assets.
 3. No crime, violence, gambling, adult exploitation, hate, or harmful mission design. Do not copy GTA/Rockstar UI, names, art, sounds or code.

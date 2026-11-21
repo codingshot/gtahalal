@@ -1,42 +1,100 @@
 # Dunya 🌍
+**An original, open-source, browser-first 3D Muslim life simulator.**
 
-**An original, open-source, browser-first Muslim life simulation about learning, service, ethical choices and building better institutions.**
+**Explore. Learn. Serve. Build.** Dunya imagines a living world where you navigate cities, care for neighbors, study, work, create ethical businesses, build institutions, and eventually pass responsibilities to future generations. The focus is on constructive choices, believable people, and meaningful consequences—not divine-reward scoring or copied game franchises.
 
-> **Status: early specification and monorepo scaffold.** No playable release, passing CI or completed religious content review has been verified. See [current audit](docs/REQUIREMENTS_AUDIT_2026-11-20.md) and [engineering blocker #26](https://github.com/codingshot/gtahalal/issues/26).
+> **Development status:** Early prototype and extensive design documentation. The `main` branch contains a procedural 3D scene, but **no verified public playable release**. A broader neighborhood prototype, typed game-core/content packages, and player-facing Act I content are in [draft PR #62](https://github.com/ummahbuild/gtahalal/pull/62), **not merged**. Clean install, browser testing, CI, asset review, and religious-content approval remain outstanding. Do not claim production readiness.
 
-## Start here
-- [Contributor guide by role](docs/START_HERE.md)
-- [Claude agent instructions](CLAUDE.md)
-- [Roadmap](docs/ROADMAP.md) and [architecture ADR](docs/ADR-001-THREE_APP_ARCHITECTURE.md)
-- [Main story campaign](docs/MAIN_CAMPAIGN_WORLD_BIBLE.md) and [industry requirements](docs/INDUSTRY_CAMPAIGN_REQUIREMENTS.md)
-- [Islamic source and content review](docs/CONTENT_REVIEW_AND_ACCEPTANCE.md) and [source ledger](docs/ISLAMIC_SOURCE_LEDGER.md)
-- [Open issues](https://github.com/codingshot/gtahalal/issues)
+## The story: A world worth building
 
-## Intended stack
-| Workspace | Purpose | Stack |
+Choose **Ahmed** or **Fatimah** and begin in *Bayhaven*, a fictional coastal neighborhood. A community pantry needs support, neighbors disagree about limited resources, an online video tells only part of the story, and a blocked entrance exposes a real accessibility problem. Help Sara, Amina, Bilal, Maya, and Omar uncover what is happening, correct mistakes, organize fair deliveries, and leave a system that works without constant intervention.
+
+This opening arc is **planned**, with one simplified pantry interaction prototyped on the draft branch. Full story and map production briefs: [Act I](docs/PLAYER_STORY_ACT_ONE.md) and [Bayhaven map](docs/STARTER_NEIGHBORHOOD_MAP_REQUIREMENTS.md) **(both currently in PR #62)**.
+
+### The Battle for a Better World
+
+Dunya's long-term main campaign contains eleven connected chapters. Players investigate fictional problems, listen to competing perspectives, build ethical alternatives, test ideas with communities, and maintain those institutions after launch.
+
+| Chapter | Conflict | What the player builds |
 |---|---|---|
-| apps/game | Browser-based 3D world | Vite, React, Three.js, React Three Fiber |
-| apps/web | Landing/community | Next.js |
-| apps/studio | Editorial review | Next.js |
-| packages/content | Future reviewed missions and city packs | TypeScript/JSON |
-| packages/game-core | Future deterministic quest state | TypeScript |
+| **The Attention Trap** | Ragebait and addictive digital incentives | Privacy-conscious, accountable social platforms |
+| **The Narrative Machine** | Sensational reporting and rumor | Independent, accountable journalism |
+| **The Broken Food Chain** | Unsafe and unfair supply practices | Reliable food cooperatives and fair distribution |
+| **The Debt Empire** | Opaque, exploitative finance | Transparent, carefully reviewed financing alternatives |
+| **The Watching Eye** | Invasive data collection | Privacy-preserving technology and safeguards |
+| **The Supply Chain** | Opaque procurement and labor practices | Verified fair-trade and logistics networks |
+| **The Housing Trap** | Inaccessible or exploitative housing | Tenant support and accessible housing |
+| **The Education Machine** | Manipulative and inaccessible learning | Open curricula and community education |
+| **The Healthcare Monopoly** | Barriers to affordable access | Patient-centered community healthcare |
+| **The Captured City** | Corruption and poor civic accountability | Peaceful reform and public-interest institutions |
+| **The Great Distraction** | Cross-industry fragility and power concentration | Sustainable institutions that function without one hero |
 
-**Known gaps:** Studio manifest not found in last audit, placeholder lint/test scripts and non-frozen CI install. The commands below are intended, **not verified**:
+All organizations and antagonists in the campaign are original fictional constructs. Shaytan is an **unseen theological temptation**, not a rendered villain or an allegation against real people or companies. These chapters are narrative designs, not playable campaign chapters yet.
 
-```sh
+**Story documentation:** [Main Campaign World Bible](docs/MAIN_CAMPAIGN_WORLD_BIBLE.md) · [Industry Requirements](docs/INDUSTRY_CAMPAIGN_REQUIREMENTS.md) · [Connected Story Atlas](docs/STORY_CAMPAIGN_BRANCH_ATLAS.md) · [Story Requirements Index](docs/REQUIREMENTS_INDEX.md).
+
+## Life inside Dunya
+
+- **Everyday Muslim life:** Optional educational experiences covering purification, salah, mosque etiquette, Arabic, Qur'an study, Ramadan, Eid, charity, neighborly service and ethical conduct. Source and scholarly review are required before normative instruction can ship.
+- **The Generations Saga:** Optional adult marriage and household life, parenting and child safeguarding, elder care, illness, non-graphic janazah and burial education, estate administration, lawful inheritance learning, and succession to a new adult playable character.
+- **World and community simulation:** Proposed NPC schedules, relationships, fictional wallets, inventory, institutions, service quality, community trust, transport, accessibility, weather, and day/night systems.
+- **Cities:** Begin with a fictional neighborhood, then develop locally reviewed packs for Nairobi, Lagos, Addis Ababa, Cairo, Istanbul, Dakar, Karachi, Dhaka, Jakarta, Sarajevo, Mogadishu and more.
+- **Learning minigames:** Original designs for wudu sequencing, mosque wayfinding, Arabic, pronunciation, accessible Jumu'ah parking, fair weights, food distribution and stewardship.
+- **Community and safety:** Consent-based dawah, fact-checking, nonviolent de-escalation, protecting people and houses of worship, legal remedies, and optional trauma-sensitive stories.
+
+See [Characters and Story Modes](docs/CHARACTERS_AND_STORIES.md), [Generations World Bible](docs/GENERATIONS_LIFECYCLE_WORLD_BIBLE.md), [Prayer Companion](docs/PRAYER_COMPANION_REAL_TIME_SPEC.md), [City Packs](docs/WORLD_CITIES.md), and [Gameplay Systems](docs/GAMEPLAY_SYSTEMS_EXPANSION.md).
+
+## Implementation: what exists vs. what is planned
+
+| Area | On `main` | In draft PR #62 | Longer-term plan |
+|---|---|---|---|
+| 3D game | Procedural neighborhood preview and character placeholders | Initial walking, follow camera, NPCs, draft pantry quest, save/load and basic collision | Accessible third-person world, interiors, transport, licensed art |
+| Web | Basic public Next.js page | Prelaunch copy and improved landing page | Community pages and verified gameplay media |
+| Studio | Editorial page scaffold; manifest missing | Studio manifest added | Reviewed mission/content publication workflow |
+| Simulation | Domain requirements documented | Typed `game-core` with a few deterministic functions | NPCs, economy, institutions, household and generations |
+| Content | Story bibles and review policy | Typed content package and prototype mission | Versioned validated reviewed content and localization |
+| CI | Non-frozen install and placeholder checks | Manual-only workflow/local audit proposed | Reproducible install, meaningful tests, browser QA |
+
+**Not yet verified:** `pnpm-lock.yaml`, green CI, full app builds, GPU performance, complete gameplay, and scholarly release approval. Known blockers: [#1](https://github.com/ummahbuild/gtahalal/issues/1), [#12](https://github.com/ummahbuild/gtahalal/issues/12), [#26](https://github.com/ummahbuild/gtahalal/issues/26), [#58](https://github.com/ummahbuild/gtahalal/issues/58).
+
+## Project structure
+
+| Path | Purpose |
+|---|---|
+| `apps/game` | Vite, React, Three.js/React Three Fiber browser simulation |
+| `apps/web` | Next.js public site |
+| `apps/studio` | Next.js editorial and content-review interface |
+| `packages/game-core` | Proposed shared deterministic simulation logic; draft implementation in PR #62 |
+| `packages/content` | Proposed versioned mission and city schemas; draft implementation in PR #62 |
+| `docs/` | Story, architecture, Islamic review, art, map and implementation requirements |
+| `.claude/skills/` | Quran, Sunnah and scenario source-review instructions |
+
+### Getting started
+
+Intended developer commands (the full monorepo workflow is **not yet verified**):
+
+```bash
 corepack enable
+corepack prepare pnpm@9.15.4 --activate
 pnpm install
 pnpm dev
-pnpm lint
 pnpm typecheck
 pnpm test
 pnpm build
 ```
 
-## Contribute
-Read [CONTRIBUTING.md](CONTRIBUTING.md), [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md), [SECURITY.md](SECURITY.md), and [AGENTS.md](AGENTS.md). Propose focused work using issue templates. Current mandate: documentation and harness improvements before gameplay logic.
+Do not substitute a non-frozen install for release verification. Work on a focused branch and record commands actually executed. [Roadmap](docs/ROADMAP.md) · [Engineering audit](docs/REQUIREMENTS_AUDIT_2026-11-20.md).
 
-## Principles
-Constructive, nonviolent gameplay; no coercive dawah or divine-reward scoring; exact Qur'an and Sunnah citations with qualified scholarly review; respect for all innocent people and houses of worship; original licensed assets, not Rockstar/GTA material; no personal information in this public repository.
+## Find the right requirements
 
-Full product requirements are maintained in this repository: see [Start Here](docs/START_HERE.md) and [Main Campaign](docs/MAIN_CAMPAIGN_WORLD_BIBLE.md).
+Start with the **[Requirements Index](docs/REQUIREMENTS_INDEX.md)**, then [Start Here](docs/START_HERE.md) for role-based onboarding. Contributors can use [AGENTS.md](AGENTS.md), [CLAUDE.md](CLAUDE.md), and [CONTRIBUTING.md](CONTRIBUTING.md). Report sensitive security issues through [SECURITY.md](SECURITY.md). Check [open issues](https://github.com/ummahbuild/gtahalal/issues) and [PRs](https://github.com/ummahbuild/gtahalal/pulls) before creating duplicates.
+
+## Religious accuracy, safety and original art
+
+Islamic sources are **research leads until verified and approved**. Every normative claim needs exact Qur'an or authenticated hadith identification, interpretation/context, relevant scholarly differences, translation rights and qualified approval. The game cannot calculate divine rewards, sins, salvation or prayer validity, and its worship animations never replace real worship.
+
+Dunya protects the agency and dignity of all characters, including people of other faiths, people with disabilities, and children. Marriage, children, grief, detention and other sensitive stories require optional exits and safeguards. No vigilantism, coerced conversion, defamatory real-world conspiracies, or unlicensed Rockstar/GTA graphics, sounds, code or branding.
+
+Source-of-truth policy: **all public requirements live in GitHub Markdown, without Notion or private-workspace links**. Narrative briefs are not automatically implemented features; verified implementation is not automatically approved religious content.
+
+**DUNYA — A world worth building.**

@@ -1,5 +1,8 @@
 # Development plan
 
+**Current reality:** `main` is an early scaffold. [Draft PR #62](https://github.com/ummahbuild/gtahalal/pull/62) contains an unverified interactive starter slice; [requirements index](REQUIREMENTS_INDEX.md) distinguishes authored documentation from implemented behavior. Do not mark roadmap tasks done until they pass verification.
+
+
 ## Phase 0 — scaffold
 - [ ] Boot all three JS apps and shared packages
 - [ ] Install lockfile, strict TypeScript and working CI
