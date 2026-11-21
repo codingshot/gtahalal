@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { freshState, move, talk, deliverPantry, migrateSave, serializeSave, nearbyNpc, tick, isWalkable } from '../src/index.ts';
+import { freshState, move, talk, deliverPantry, migrateSave, serializeSave, nearbyNpc, tick, isWalkable, LANDMARKS, NPCS } from '../src/index.ts';
 test('movement is bounded and ignores invalid deltas', () => {
   let s=freshState();
   assert.equal(move(s,NaN,0,1),s);
@@ -36,4 +36,15 @@ test('obstacles block movement but permit axis sliding', () => {
   const state={...freshState(),position:{x:-3,z:1.25}};
   const next=move(state,0,1,.1);
   assert.equal(next.position.z,state.position.z);
+});
+
+test('NPC conversations require proximity and cannot be remotely triggered', () => {
+  const start=freshState();
+  assert.equal(talk(start,'sara').quest,'available');
+  const atSara={...start,position:{x:-7,z:1}};
+  assert.equal(talk(atSara,'sara').quest,'active');
+  assert.deepEqual(talk(atSara,'unknown'),atSara);
+});
+test('all starter NPCs have map landmark anchors', () => {
+  for(const npc of NPCS) assert.ok(LANDMARKS.some(p => Math.hypot(p.x-npc.x,p.z-npc.z)<0.01),npc.id);
 });
