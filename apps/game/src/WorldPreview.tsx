@@ -35,16 +35,17 @@ function Avatar({ persona, position }: { persona: Persona; position: { x: number
     {isFatimah && <mesh position={[0, 1.64, -0.09]} castShadow><coneGeometry args={[0.36, 0.8, 12]} /><meshStandardMaterial color="#445a68" side={THREE.DoubleSide} /></mesh>}
   </group>;
 }
-function FollowCamera({ position }: { position: { x: number; z: number } }) {
+function FollowCamera({ position, reducedMotion }: { position: { x: number; z: number }; reducedMotion: boolean }) {
   const { camera } = useThree();
   useFrame((_, delta) => {
     const desired = new THREE.Vector3(position.x + 5.5, 5, position.z + 7);
-    camera.position.lerp(desired, Math.min(1, delta * 5));
+    if (reducedMotion) camera.position.copy(desired);
+    else camera.position.lerp(desired, Math.min(1, delta * 5));
     camera.lookAt(position.x, 1.2, position.z);
   });
   return null;
 }
-function NeighborhoodScene({ game, quality, onTick }: { game: GameState; quality: Quality; onTick: (dt: number) => void }) {
+function NeighborhoodScene({ game, quality, reducedMotion, onTick }: { game: GameState; quality: Quality; reducedMotion: boolean; onTick: (dt: number) => void }) {
   const accumulator = useRef(0);
   useFrame((_, delta) => { accumulator.current += Math.min(delta, 0.1); if (accumulator.current >= 0.05) { onTick(accumulator.current); accumulator.current = 0; } });
   return <>
@@ -60,7 +61,7 @@ function NeighborhoodScene({ game, quality, onTick }: { game: GameState; quality
       <mesh position={[0, 1.7, 0]} castShadow><sphereGeometry args={[0.21, 12, 8]} /><meshStandardMaterial color="#936f57" /></mesh>
     </group>)}
     <Avatar persona={game.persona} position={game.position} />
-    <FollowCamera position={game.position} />
+    <FollowCamera position={game.position} reducedMotion={reducedMotion} />
     {quality === 'high' && <ContactShadows position={[0, 0.035, 0]} opacity={0.3} scale={42} blur={2.4} far={15} />}
   </>;
 }
@@ -150,7 +151,7 @@ export function WorldPreview() {
       <p style={{ fontSize:12, margin:'8px 0 0' }}>{PANTRY_MISSION.chapter} · {game.quest==='available'?'Meet Sara at Harbor Plaza':game.quest==='active'?'Find Amina and confirm the pantry handoff':'Pantry handoff complete — thank you!'}</p>
     </header>
     <Canvas shadows={quality==='high'} dpr={quality==='high'?[1,1.75]:[1,1.25]} camera={{ position:[6,5,8], fov:55 }} gl={{ antialias:quality==='high', powerPreference:'high-performance' }}>
-      <NeighborhoodScene game={game} quality={quality} onTick={onTick} />
+      <NeighborhoodScene game={game} quality={quality} reducedMotion={reducedMotion} onTick={onTick} />
     </Canvas>
     {showMap && <section aria-label="Bayhaven neighborhood map" style={{position:'absolute',top:175,right:12,zIndex:4,background:'rgba(11,30,38,.96)',padding:16,borderRadius:10,width:'min(290px,calc(100vw - 24px))'}}>
       <h2 style={{margin:'0 0 8px',fontSize:17}}>Bayhaven · Map</h2>
