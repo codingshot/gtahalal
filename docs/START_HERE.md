@@ -1,6 +1,8 @@
 # Start here — Dunya contributors
 
-Dunya is a public, original, nonviolent Muslim life-simulation game concept. **Current phase: specifications and contributor scaffolding, not playable gameplay.**
+Dunya is a public, original, nonviolent Muslim life-simulation game concept. **Current phase: early 3D blockout, extensive draft specifications and unverified interactive work in [PR #62](https://github.com/ummahbuild/gtahalal/pull/62). No verified public playable release.**
+
+Read the [canonical requirements index](REQUIREMENTS_INDEX.md) before starting new work. Existing issues and PRs were transferred intact to `ummahbuild/gtahalal`.
 
 ## Fast path by role
 - **Claude or coding agents:** [CLAUDE.md](../CLAUDE.md), [Claude execution plan](CLAUDE_EXECUTION_PLAN.md), [handoff checklist](CLAUDE_HANDOFF_CHECKLIST.md).
@@ -11,7 +13,7 @@ Dunya is a public, original, nonviolent Muslim life-simulation game concept. **C
 - **Safety/legal reviewers:** [Defender](ISLAMIC_DEFENDER.md), [detention](DETENTION_AND_DISPLACEMENT_STORY.md), [sensitive story modes](STORY_MODE_EXPANSION.md).
 
 ## Repo reality
-The intended monorepo is apps/game (Vite + React Three Fiber), apps/web (Next.js), apps/studio (Next.js), shared packages. Do not assume these all build: the last audit found a missing studio manifest, placeholder lint/test scripts and non-frozen CI installation. See issue #26.
+The intended monorepo is apps/game (Vite + React Three Fiber), apps/web (Next.js), apps/studio (Next.js), shared packages. Draft PR #62 adds additional packages, an initial interactive slice and a missing studio manifest, but remains unmerged. Do not assume these all build: the last audit found a missing studio manifest, placeholder lint/test scripts and non-frozen CI installation. See issue #26.
 
 ## Contribution workflow
 1. Pick one scoped issue, confirm it isn't duplicated.
