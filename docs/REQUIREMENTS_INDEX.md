@@ -1,6 +1,10 @@
 # Dunya — public requirements index
 Status: index of existing source documents and draft PR work; documentation is not implementation or religious approval.
 
+## Transfer and authoring
+- [Transfer audit](TRANSFER_GITHUB_AUDIT_2026-11-21.md) — which files and changes actually live on main versus draft PR #62.
+- [Narrative scene standard](NARRATIVE_SCENE_STANDARD.md) — machine-readable scene requirements and original dialogue authoring.
+
 ## New contributor handoffs
 - [M0–M7 milestone and issue map](PROJECT_MILESTONES_AND_ISSUE_MAP.md) — implementation order and verification gates.
 - [Act I player experience acceptance criteria](ACT_I_PLAYER_EXPERIENCE_REQUIREMENTS.md) — first playable neighborhood, NPC dialogue and map requirements.
