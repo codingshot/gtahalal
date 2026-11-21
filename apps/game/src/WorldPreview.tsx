@@ -75,12 +75,17 @@ export function WorldPreview() {
   const [dialogue, setDialogue] = useState('');
   const [dialogueNpc, setDialogueNpc] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const [showMap, setShowMap] = useState(false);
+  const [showJournal, setShowJournal] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const pressed = useRef(new Set<string>());
   const gameRef = useRef(game);
     useEffect(() => { gameRef.current = game; }, [game]);
   useEffect(() => {
     setGame(loadGame()); setLoaded(true);
     const down = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target && (['INPUT','TEXTAREA','SELECT'].includes(target.tagName) || target.isContentEditable)) return;
       if (['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyE','Space'].includes(e.code)) e.preventDefault();
       pressed.current.add(e.code);
     };
@@ -90,26 +95,27 @@ export function WorldPreview() {
     return () => { window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', blur); };
   }, []);
   const interact = useCallback(() => {
+    if (dialogueNpc) return;
     const current = gameRef.current;
     const npc = nearbyNpc(current);
     if (!npc) { setDialogue('Move closer to a neighbor to talk.'); return; }
     setDialogue(npc.name + ': ' + npc.text);
     setDialogueNpc(npc.id);
-  }, []);
+  }, [dialogueNpc]);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.code === 'KeyE' && !e.repeat && !paused) interact(); };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [interact, paused]);
   const onTick = useCallback((dt: number) => {
-    if (paused) return;
+    if (paused || dialogueNpc || showMap || showJournal) return;
     const keys = pressed.current;
     let dx = Number(keys.has('KeyD') || keys.has('ArrowRight')) - Number(keys.has('KeyA') || keys.has('ArrowLeft'));
     let dz = Number(keys.has('KeyS') || keys.has('ArrowDown')) - Number(keys.has('KeyW') || keys.has('ArrowUp'));
     const pad = navigator.getGamepads?.()[0];
     if (pad) { dx += Math.abs(pad.axes[0] ?? 0) > 0.18 ? pad.axes[0] : 0; dz += Math.abs(pad.axes[1] ?? 0) > 0.18 ? pad.axes[1] : 0; }
     setGame(s => tick(move(s, dx, dz, dt), dt));
-  }, [paused]);
+  }, [paused, dialogueNpc, showMap, showJournal]);
   const respond = (accept: boolean) => {
     if (accept && dialogueNpc) setGame(previous => {
       const talked = talk(previous, dialogueNpc);
@@ -137,12 +143,33 @@ export function WorldPreview() {
         <button style={buttonStyle} onClick={save}>Save</button>
         <button style={buttonStyle} onClick={() => setGame(loadGame())}>Load</button>
         <button style={buttonStyle} onClick={() => setQuality(q => q==='low'?'high':'low')}>Graphics: {quality}</button>
+        <button style={buttonStyle} onClick={() => setShowMap(v => !v)} aria-expanded={showMap}>Map</button>
+        <button style={buttonStyle} onClick={() => setShowJournal(v => !v)} aria-expanded={showJournal}>Journal</button>
+        <button style={buttonStyle} onClick={() => setReducedMotion(v => !v)} aria-pressed={reducedMotion}>Reduced motion: {reducedMotion ? 'On' : 'Off'}</button>
       </div>
       <p style={{ fontSize:12, margin:'8px 0 0' }}>{PANTRY_MISSION.chapter} · {game.quest==='available'?'Meet Sara at Harbor Plaza':game.quest==='active'?'Find Amina and confirm the pantry handoff':'Pantry handoff complete — thank you!'}</p>
     </header>
     <Canvas shadows={quality==='high'} dpr={quality==='high'?[1,1.75]:[1,1.25]} camera={{ position:[6,5,8], fov:55 }} gl={{ antialias:quality==='high', powerPreference:'high-performance' }}>
       <NeighborhoodScene game={game} quality={quality} onTick={onTick} />
     </Canvas>
+    {showMap && <section aria-label="Bayhaven neighborhood map" style={{position:'absolute',top:175,right:12,zIndex:4,background:'rgba(11,30,38,.96)',padding:16,borderRadius:10,width:'min(290px,calc(100vw - 24px))'}}>
+      <h2 style={{margin:'0 0 8px',fontSize:17}}>Bayhaven · Map</h2>
+      <p style={{fontSize:12}}>Fictional local coordinates. No real GPS is used.</p>
+      <div role="img" aria-label={'Player at x '+game.position.x.toFixed(1)+' and z '+game.position.z.toFixed(1)} style={{position:'relative',height:160,background:'#41575a',border:'2px solid #a7b9a9',borderRadius:6}}>
+        <div style={{position:'absolute',left:'50%',top:0,bottom:0,width:35,background:'#6b7978',transform:'translateX(-50%)'}}/>
+        {NPCS.map(n => <span key={n.id} title={n.name} style={{position:'absolute',left:((n.x+21)/42*100)+'%',top:((n.z+7)/14*100)+'%',color:'#fff',fontWeight:700}}>●</span>)}
+        <span title="Your character" style={{position:'absolute',left:((game.position.x+21)/42*100)+'%',top:((game.position.z+7)/14*100)+'%',color:'#ffdb73',fontWeight:900}}>◆</span>
+      </div>
+      <p style={{fontSize:12}}>◆ You · ● Sara, Bilal, Amina</p>
+      <button style={buttonStyle} onClick={() => setShowMap(false)}>Close map</button>
+    </section>}
+    {showJournal && <section aria-label="Quest journal" style={{position:'absolute',top:175,right:12,zIndex:4,background:'rgba(11,30,38,.96)',padding:16,borderRadius:10,width:'min(290px,calc(100vw - 24px))'}}>
+      <h2 style={{margin:'0 0 8px',fontSize:17}}>Your journal</h2>
+      <strong>First Neighbors</strong>
+      <p>{game.quest==='available'?'Meet Sara near the plaza and decide whether to help.':game.quest==='active'?'Find Amina near the pantry and confirm the handoff.':'The pantry handoff is complete. You can continue exploring.'}</p>
+      <p style={{fontSize:12}}>Content status: draft · Fictional community story</p>
+      <button style={buttonStyle} onClick={() => setShowJournal(false)}>Close journal</button>
+    </section>}
     <aside aria-live="polite" style={{ position:'absolute', bottom:115, left:12, right:12, zIndex:3, pointerEvents:'none', textAlign:'center', textShadow:'0 1px 4px black', fontSize:14 }}>
       {dialogue || (nearby ? 'Near '+nearby.name+' — press E or Talk' : 'WASD / arrows to walk · gamepad supported')}
     </aside>
